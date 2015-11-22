@@ -161,7 +161,4 @@ func main() {
 
 	model := kmeans{}
 	model.fit(x, 3)
-	fmt.Println(random(0, 3))
-	fmt.Println(random(0, 3))
-	fmt.Println(random(0, 3))
 }
