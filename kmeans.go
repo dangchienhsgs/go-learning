@@ -9,7 +9,7 @@ import (
 )
 
 type kmeans struct {
-	array        [][]float64
+	elems        [][]float64
 	num_elems    int
 	dimension    int
 	num_clusters int
@@ -19,7 +19,7 @@ type kmeans struct {
 }
 
 func (model *kmeans) fit(input [][]float64, num_clusters int) {
-	model.array = input
+	model.elems = input
 	model.num_elems = len(input)
 	model.dimension = len(input[0])
 	model.num_clusters = num_clusters
@@ -52,7 +52,7 @@ func (model *kmeans) update_centers() {
 
 		model.centers[label] = sum_two_vector(
 			model.centers[label],
-			model.array[i])
+			model.elems[i])
 
 		count_label[label] = count_label[label] + 1
 	}
@@ -74,10 +74,10 @@ func divide_vector(vector []float64, divisor float64) []float64 {
 func (model *kmeans) update_labels() {
 	for i := 0; i < model.num_elems; i++ {
 		index_min := 0
-		value_min := distance(model.array[i], model.centers[0])
+		value_min := distance(model.elems[i], model.centers[0])
 
 		for j := 1; j < model.num_clusters; j++ {
-			temp := distance(model.array[i], model.centers[j])
+			temp := distance(model.elems[i], model.centers[j])
 			if temp < value_min {
 				value_min = temp
 				index_min = j
